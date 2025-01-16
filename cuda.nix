@@ -1,4 +1,5 @@
-let addCuda = pkgs: package: package.overrideAttrs (p: {
+pkgs:
+let addCuda = package: package.overrideAttrs (p: {
       buildInputs = p.buildInputs ++ (with pkgs.cudaPackages; [
         cudatoolkit
         cudnn
@@ -10,8 +11,13 @@ rm -f $out/lib/python3.12/site-packages/nvidia/__pycache__/__init__.cpython-312.
 '';
     });
 
-    addCudaTo = packageSet: names: builtins.listToAttrs (map (name: { inherit name; value = addCuda packageSet packageSet.${name}; }) names); in
-
+    addCudaTo = packageSet: names: builtins.listToAttrs (map
+      (name: { inherit name;
+               value = addCuda packageSet.${name};
+             })
+      names
+    );
+in
 final: prev: addCudaTo prev [
   "nvidia-cusolver-cu12"
   "nvidia-cusparse-cu12"

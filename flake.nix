@@ -1,11 +1,9 @@
 {
-  outputs = {
-      ...
-  }:
+  outputs = {...}:
     {
-      overlays = {
-        cuda = import ./cuda.nix;
-        default = import ./overlay.nix;
+      overrides = pkgs: {
+        cuda = import ./cuda.nix pkgs;
+        default = import ./overlay.nix pkgs;
       };
     };
 }
