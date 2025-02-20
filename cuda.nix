@@ -6,6 +6,7 @@ let addCuda = package: package.overrideAttrs (p: {
         cuda_cudart
         nccl
       ]);
+      autoPatchelfIgnoreMissingDeps = [ "libcusparseLt.so.0" ];
       postInstall = ''
 rm -f $out/lib/python3.12/site-packages/nvidia/__pycache__/__init__.cpython-312.pyc
 '';
