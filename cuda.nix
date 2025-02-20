@@ -12,7 +12,14 @@ rm -f $out/lib/python3.12/site-packages/nvidia/__pycache__/__init__.cpython-312.
 '';
   });
   ignoreCuda = package: package.overrideAttrs (p: {
-    autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" "libcudart.so.1" ];
+    autoPatchelfIgnoreMissingDeps = [
+      "libcuda.so.1"
+      "libcudart.so.1"
+      "libnvJitLink.so.12"
+      "libcusparse.so.12"
+      "libcublas.so.12"
+      "libcublasLt.so.12"
+    ];
   });
 
   addCudaTo = packageSet: names: builtins.listToAttrs (map
