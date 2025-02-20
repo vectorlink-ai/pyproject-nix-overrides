@@ -14,11 +14,19 @@ rm -f $out/lib/python3.12/site-packages/nvidia/__pycache__/__init__.cpython-312.
   ignoreCuda = package: package.overrideAttrs (p: {
     autoPatchelfIgnoreMissingDeps = [
       "libcuda.so.1"
-      "libcudart.so.1"
+      "libcudart.so.12"
       "libnvJitLink.so.12"
       "libcusparse.so.12"
+      "libcusparseLt.so.0"
       "libcublas.so.12"
       "libcublasLt.so.12"
+      "libnvrtc.so.12"
+      "libcudnn.so.9"
+      "libcufft.so.11"
+      "libcurand.so.10"
+      "libnccl.so.2"
+      "libcusolver.so.11"
+      "libcupti.so.12"
     ];
   });
 
