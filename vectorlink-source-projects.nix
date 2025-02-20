@@ -1,8 +1,10 @@
-pkgs: final: prev: {
-  vectorlink-gpu = prev.vectorlink-gpu.overrideAttrs (old: {
-    buildInputs = old.buildInputs or [] ++ [final.hatchling final.pathspec final.pluggy final.packaging final.trove-classifiers];
+pkgs: final: prev:
+let
+  addHatchling = (old: {
+    buildInputs = old.buildInputs or [] ++ (with final; [hatchling pathspec pluggy packaging trove-classifiers]);
   });
-  vectorlink-py = prev.vectorlink-py.overrideAttrs (old: {
-    buildInputs = old.buildInputs or [] ++ [final.hatchling final.pathspec final.pluggy final.packaging final.trove-classifiers];
-  });
+in
+{
+  vectorlink-gpu = prev.vectorlink-gpu.overrideAttrs addHatchling;
+  vectorlink = prev.vectorlink.overrideAttrs addHatchling;
 }
